@@ -11,9 +11,6 @@ export default class HomeView extends Component {
     return (
       <View style={styles.container}>
         <H3>Home screen</H3>
-        <Button onPress={() => this.props.navigation.navigate('Barcode')}>
-          <Text>Go !</Text>
-        </Button>
       </View>
     );
   }
