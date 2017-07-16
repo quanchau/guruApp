@@ -10,7 +10,40 @@ import {
   Thumbnail,Container,
 } from 'native-base';
 
+import * as firebase from 'firebase';
+
 export default class LoginView extends Component {
+  constructor(props){
+    super(props);
+    this.state = {
+      userName: '',
+      password: '',
+    }
+    this.dataRef = firebase.database().ref('users');
+  }
+
+  handleUserNameChange = (name) => {
+    this.setState({
+      userName: name,
+    })
+    console.log(this.state.userName);
+  }
+
+  handlePasswordChange = (pw) => {
+    this.setState({
+      password: pw,
+    })
+  }
+
+  handleSubmit = () => {
+    const user = {
+      userName: this.state.userName,
+      password: this.state.password,
+    }
+    this.dataRef.push(user);
+    this.props.navigation.navigate('Main');
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -21,14 +54,18 @@ export default class LoginView extends Component {
             style={styles.logo}
             source={require('./logoGuru.png')} />
             <Item>
-              <Input placeholder="Username" />
+              <Input
+                onChangeText={this.handleUserNameChange}
+                placeholder="Username" />
             </Item>
             <Item last>
-              <Input placeholder="Password" />
+              <Input
+                onChangeText={this.handlePasswordChange}
+                placeholder="Password" />
             </Item>
             <Button
               style={styles.button}
-              onPress={() => this.props.navigation.navigate('Main')}>
+              onPress={this.handleSubmit}>
               <Text>Sign In</Text>
             </Button>
           </Form>
