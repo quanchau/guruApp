@@ -13,12 +13,12 @@ const cards = [
   {
     text: 'Card One',
     name: 'One',
-    image: require('../../Login/logoGuru.png'),
+    image: require('../../Login/logo.png'),
   },
   {
     text: 'Card One',
     name: 'One',
-    image: require('../../Login/logoGuru.png'),
+    image: require('../../Login/logo.png'),
   },
 ];
 
@@ -31,7 +31,7 @@ export default class HomeView extends Component {
       cards: [{
         text: 'Card One',
         name: 'One',
-        image: require('../../Login/logoGuru.png'),
+        image: require('../../Login/logo.png'),
       },],
       ready: false,
     }

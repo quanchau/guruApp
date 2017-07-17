@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
-import { View, StyleSheet, Image } from 'react-native';
+import { View, StyleSheet, Image, Dimensions, Text } from 'react-native';
 import {
   Button,
-  Text,
   Content,
   Form,
   Item,
@@ -26,7 +25,6 @@ export default class LoginView extends Component {
     this.setState({
       userName: name,
     })
-    console.log(this.state.userName);
   }
 
   handlePasswordChange = (pw) => {
@@ -40,19 +38,36 @@ export default class LoginView extends Component {
       userName: this.state.userName,
       password: this.state.password,
     }
-    this.dataRef.push(user);
+    // this.dataRef.once("value", (snapshot) => {
+    //   snapshot.forEach((childSnapshot) => {
+    //     //console.log(childSnapshot);
+    //     if(childSnapshot.val().userName == this.state.userName
+    //       && childSnapshot.val().password == this.state.password){
+    //       this.props.navigation.navigate('Main');
+    //       return;
+    //     }
+    //     else {
+    //       alert('User name or password does not exist!');
+    //       return;
+    //     }
+    //   })
+    // });
     this.props.navigation.navigate('Main');
+  }
+
+  handleRegisterButtonClicked = () => {
+    this.props.navigation.navigate('Register');
   }
 
   render() {
     return (
       <View style={styles.container}>
-        <Container>
         <Content contentContainerStyle={styles.formSignIn}>
           <Form >
             <Image
             style={styles.logo}
-            source={require('./logoGuru.png')} />
+            resizeMode='stretch'
+            source={require('./logo.png')} />
             <Item>
               <Input
                 onChangeText={this.handleUserNameChange}
@@ -64,13 +79,23 @@ export default class LoginView extends Component {
                 placeholder="Password" />
             </Item>
             <Button
+              block
               style={styles.button}
               onPress={this.handleSubmit}>
-              <Text>Sign In</Text>
+              <Text style={{color: 'white'}}>Sign In</Text>
             </Button>
           </Form>
+          <Text style={styles.separationText}>
+            —————OR—————
+          </Text>
+          <Button
+            block
+            bordered
+            style={styles.button}
+            onPress={this.handleRegisterButtonClicked}>
+            <Text>Create New Account</Text>
+          </Button>
         </Content>
-        </Container>
       </View>
     );
   }
@@ -79,29 +104,26 @@ export default class LoginView extends Component {
 const styles = {
   container: {
     flex: 1,
+    backgroundColor: '#ecf0f1',
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ecf0f1',
   },
   formSignIn: {
-    paddingTop: 20,
+    alignItems: 'center',
     justifyContent: 'center',
   },
   logo: {
-    height: 200,
-    width: 200,
+    height: Dimensions.get('window').height/3,
+    width: Dimensions.get('window').width/1.5,
     marginTop: 10,
-    marginBottom: 50,
+    marginBottom: 20,
+  },
+  separationText: {
+    marginTop: 80,
+    color: 'grey',
   },
   button: {
-    flex: 1,
+    height: 30,
     marginTop: 20,
-  },
-  paragraph: {
-    margin: 24,
-    fontSize: 18,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: '#34495e',
   },
 };
