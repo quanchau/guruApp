@@ -5,6 +5,7 @@ import Placeholder from '@components/Common/PlaceHolder';
 import NormalToolbar from '@components/Common/Toolbar';
 //screen
 import LoginView from '@container/Login/LoginView';
+import RegisterView from '@container/Register/RegisterView';
 import MainView from '@container/Main/MainView';
 import HomeView from '@container/Main/Home/HomeView';
 import FriendsView from '@container/Main/Friends/FriendsView';
@@ -77,6 +78,12 @@ const AppNavigator = StackNavigator({
   Login: {
     screen: LoginView,
     header: null,
+  },
+  Register: {
+    screen: RegisterView,
+    navigationOptions: {
+      header: NormalToolbar,
+    }
   },
   Main: {
     screen: MainNavigator,

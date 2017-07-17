@@ -1,17 +1,105 @@
 import React, {Component} from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import {
   Button,
   Text,
   H3,
+  Container, DeckSwiper, Card, CardItem, Thumbnail, Left, Body, Icon,
+  Spinner,
 } from 'native-base';
 
+import * as firebase from 'firebase';
+const cards = [
+  {
+    text: 'Card One',
+    name: 'One',
+    image: require('../../Login/logo.png'),
+  },
+  {
+    text: 'Card One',
+    name: 'One',
+    image: require('../../Login/logo.png'),
+  },
+];
+
+
 export default class HomeView extends Component {
+  constructor(props){
+    super(props);
+    this.dataRef = firebase.database().ref('books');
+    this.state = {
+      cards: [{
+        text: 'Card One',
+        name: 'One',
+        image: require('../../Login/logo.png'),
+      },],
+      ready: false,
+    }
+  }
+
+  listenForProfiles(dataRef) {
+       dataRef.on('value', (bookList) => {
+         let books = [];
+         bookList.forEach((child) => {
+         const book = child.val();
+          for(let id in book){
+            books.push(book[id]);
+          }
+         });
+         this.setState({
+           cards: books,
+           ready: true,
+         });
+       });
+     }
+
+  componentDidMount() {
+    this.listenForProfiles(this.dataRef);
+  };
   render() {
+    if(!this.state.ready) {
+      return <Spinner color='blue' />;
+    }
     return (
-      <View style={styles.container}>
-        <H3>Home screen</H3>
-      </View>
+      <Container >
+         <View>
+           <DeckSwiper
+            ref={(c) => this._deckSwiper = c}
+             dataSource={this.state.cards}
+             renderItem={item =>
+               <Card style={{ elevation: 3 }}>
+                 <CardItem>
+                   <Left>
+                     <Thumbnail source={{uri: item.imageUrl}} />
+                     <Body>
+                       <Text>{item.title}</Text>
+                       <Text note>{item.author}</Text>
+                     </Body>
+                   </Left>
+                 </CardItem>
+                 <CardItem cardBody>
+                   <Image
+                    style={{ height: 400, flex: 1 }} source={{uri: item.imageUrl}}
+                    resizeMode='stretch'
+                    />
+                 </CardItem>
+                 <CardItem>
+                  <Button
+                    onPress={() => this._deckSwiper._root.swipeLeft()}
+                    transparent>
+                   <Icon name="close-circle" style={{ color: '#ED4A6A' }} />
+                  </Button>
+                  <Button
+                    onPress={() => this._deckSwiper._root.swipeRight()}
+                    transparent>
+                   <Icon name="heart" style={{ color: '#ED4A6A' }} />
+                  </Button>
+                 </CardItem>
+               </Card>
+             }
+           />
+         </View>
+       </Container>
     );
   }
 }
