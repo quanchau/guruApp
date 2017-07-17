@@ -15,9 +15,6 @@ const NormalToolbar = (props) => {
   return (
     <Header>
       <Left style={{flex: 0}}>
-        <Button onPress={goBack} transparent>
-          <Icon name='arrow-back' />
-        </Button>
       </Left>
       <Body>
         <Title>Header</Title>
