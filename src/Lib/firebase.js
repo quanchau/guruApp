@@ -10,20 +10,30 @@ const config = {
 };
 firebase.initializeApp(config);
 
-const database = firebase.database();
+firebase.initializeData = () => {
+  const ref = firebase.database().ref('books');
+  ref.once('value')
+    .then(snapshot => {
+      if (!snapshot.val()) {
+        console.log('INITIALIZE DATA FOR APPLICATION ');
+        return fetch('https://www.googleapis.com/books/v1/volumes?q=a&key=AIzaSyDxVtl-VS4lr22NprX_4VdQOQ5kqzUvq1U');
+      }else {
+        console.log('APPLICATION HAVING DATA FROM FIREBASE');
+        return null;
+      }
+    })
+    .then(response => response.json())
+    .then(books => {
+      books.items.map(item => {
+        const book = {
+          id: item.id,
+          ...item.volumeInfo,
+        };
+        ref.push(book);
+      });
 
-export const getListBooks = () => {
-  database.ref('books').once('value', function(snapshot) {
-    snapshot.forEach(function(childSnapshot) {
-      const childKey = childSnapshot.key;
-      const childData = childSnapshot.val();
-      console.log('[firebase.js] ', childData, childKey);
-    });
-  });
+    })
+    .catch(error => console.log('[firebase.js] initializeData ', error))
 };
 
-export const addBook = (book) => {
-  const refs = database.ref('books');
-  const key = refs.push().getKey();
-  refs.push()
-};
+export default firebase;
