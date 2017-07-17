@@ -4,6 +4,7 @@ import { Platform, BackHandler } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import NavigatorViewContainer from './src/Navigator/NavigatorViewContainer';
 import store from './src/Redux/Store';
+import * as firebase from 'firebase';
 
 export default class App extends React.Component {
 

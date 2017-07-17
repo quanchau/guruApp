@@ -1,17 +1,53 @@
 import React, {Component} from 'react';
-import { View } from 'react-native';
-import {
-  Button,
-  Text,
-  H3,
+import { Image  } from 'react-native';
+import { Container, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon
 } from 'native-base';
+import ReviewItem from '../../../Components/Common/ReviewItem';
+
+import { getListBooks, addBook } from '../../../Lib/firebase';
+
+const IMAGE_URL = 'https://resizing.flixster.com/pN2StY3TGjz8dIs1VPjKN32I288=/206x305/v1.bTsxMTE2ODA5MjtqOzE3NDU0OzEyMDA7ODAwOzEyMDA';
 
 export default class HomeView extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = {
+      reviews: [
+        {
+          text: 'Card One',
+          name: 'One',
+          image: { uri: IMAGE_URL},
+        },
+        {
+          text: 'Card two',
+          name: 'two',
+          image: { uri: IMAGE_URL},
+        },
+        {
+          text: 'Card three',
+          name: 'three',
+          image: { uri: IMAGE_URL},
+        },
+      ],
+      ready: false,
+    }
+  }
+
+  componentDidMount = () => {
+
+  };
+
   render() {
     return (
-      <View style={styles.container}>
-        <H3>Home screen</H3>
-      </View>
+      <Container>
+        <View>
+          <DeckSwiper
+            dataSource={this.state.reviews}
+            renderItem={item => <ReviewItem item={item} />}
+          />
+        </View>
+      </Container>
     );
   }
 }
