@@ -1,15 +1,28 @@
 import React, {Component} from 'react';
 import { Image  } from 'react-native';
-import { Container, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon
-} from 'native-base';
+import { Container, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon} from 'native-base';
 import ReviewItem from '../../../Components/Common/ReviewItem';
 
 import { getListBooks, addBook } from '../../../Lib/firebase';
 
 const IMAGE_URL = 'https://resizing.flixster.com/pN2StY3TGjz8dIs1VPjKN32I288=/206x305/v1.bTsxMTE2ODA5MjtqOzE3NDU0OzEyMDA7ODAwOzEyMDA';
 
-export default class HomeView extends Component {
+import * as firebase from 'firebase';
+const cards = [
+  {
+    text: 'Card One',
+    name: 'One',
+    image: require('../../Login/logo.png'),
+  },
+  {
+    text: 'Card One',
+    name: 'One',
+    image: require('../../Login/logo.png'),
+  },
+];
 
+
+export default class HomeView extends Component {
   constructor(props){
     super(props);
     this.state = {
@@ -38,7 +51,11 @@ export default class HomeView extends Component {
 
   };
 
+
   render() {
+    if(!this.state.ready) {
+      return <Spinner color='blue' />;
+    }
     return (
       <Container>
         <View>
@@ -47,7 +64,7 @@ export default class HomeView extends Component {
             renderItem={item => <ReviewItem item={item} />}
           />
         </View>
-      </Container>
+      </Container>      
     );
   }
 }
