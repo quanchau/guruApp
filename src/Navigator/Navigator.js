@@ -3,6 +3,8 @@ import { Icon } from 'native-base';
 import {DrawerNavigator, StackNavigator, TabNavigator} from 'react-navigation';
 import Placeholder from '@components/Common/PlaceHolder';
 import NormalToolbar from '@components/Common/Toolbar';
+import ReviewToolbar from '@components/Common/ReviewBar';
+
 //screen
 import LoginView from '@container/Login/LoginView';
 import RegisterView from '@container/Register/RegisterView';
@@ -13,6 +15,14 @@ import ProfieView from '@container/Main/Profile/ProfileView';
 import Review from '@container/Main/Review/Review';
 import BarcodeScanner from '@container/Demo/BarcodeScanner';
 
+const ReviewView = StackNavigator({
+   Review: {
+     screen: Review,
+    //  navigationOptions: {
+    //    header: ReviewToolbar,
+    //  }
+  }
+})
 
 const MainNavigator = TabNavigator({
   Home: {
@@ -32,13 +42,13 @@ const MainNavigator = TabNavigator({
       tabBarIcon: ({ tintColor }) => (
         <Icon name="people" style={{ color : '#FFF'}}
         />
-      )
+      ),
     }
   },
   Add: {
     screen: Review,
     navigationOptions: {
-      title: 'Review',
+      title: 'Add Review',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="add" style={{ color : '#FFF'}}
         />
@@ -87,9 +97,7 @@ const AppNavigator = StackNavigator({
   },
   Main: {
     screen: MainNavigator,
-    navigationOptions: {
-      header: NormalToolbar,
-    }
+    header: null,
   },
   Barcode: {
     screen: BarcodeScanner,

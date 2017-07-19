@@ -1,16 +1,57 @@
 import React, {Component} from 'react';
-import { View } from 'react-native';
+import { View, Image, Dimensions, Keyboard } from 'react-native';
 import {
-  Button,
+  Container,
+  Content,
+  Card,
+  CardItem,
+  Thumbnail,
   Text,
-  H3,
+  Button,
+  Icon,
+  Left,
+  Body,
+  Right,
+  Item,
+  Input,
 } from 'native-base';
 
+const IMAGE_URL = 'https://pbs.twimg.com/profile_images/782474226020200448/zDo-gAo0_400x400.jpg';
+
 export default class Review extends Component {
+  handleTextInputChange = (text) => {
+    //console.log(text);
+    Keyboard.dismiss();
+  }
   render() {
     return (
       <View style={styles.container}>
-        <H3>Review screen</H3>
+        <Card>
+          <CardItem>
+            <Left>
+              <Thumbnail source={{uri: IMAGE_URL}} />
+              <Body>
+                <Text>Elon Musk</Text>
+              </Body>
+            </Left>
+          </CardItem>
+          <CardItem >
+            <Body>
+            <Item style={styles.textBox}>
+              <Input
+                style={styles.input}
+                placeholder='Want to review a book, Elon?'
+                onChangeText={this.handleTextInputChange}
+                autoFocus={true}
+              />
+            </Item>
+            </Body>
+          </CardItem>
+          <CardItem>
+            <Left>
+            </Left>
+          </CardItem>
+        </Card>
       </View>
     );
   }
@@ -19,10 +60,14 @@ export default class Review extends Component {
 const styles = {
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 56,
-    backgroundColor: '#ecf0f1',
+  },
+  textBox: {
+    height: 200,
+    width: Dimensions.get('window').width,
+  },
+  input: {
+    height: 200,
+    alignItems: 'flex-start',
   },
   paragraph: {
     margin: 24,

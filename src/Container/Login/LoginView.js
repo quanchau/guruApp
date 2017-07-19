@@ -52,6 +52,13 @@ export default class LoginView extends Component {
     //     }
     //   })
     // });
+    //
+    // this.dataRef.orderByChild("userName").equalTo(this.state.userName).once("value", (snapshot) => {
+    //   const userName = snapshot.val();
+    //   if (userName){
+    //     console.log("exists!");
+    //   }
+    // });
     this.props.navigation.navigate('Main');
   }
 

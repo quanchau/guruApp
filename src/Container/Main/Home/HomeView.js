@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import { Image  } from 'react-native';
-import { Container, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon} from 'native-base';
+import { Container, View, DeckSwiper, Card, CardItem, Thumbnail, Text, Left, Body, Icon, Spinner} from 'native-base';
 import ReviewItem from '../../../Components/Common/ReviewItem';
 
 import { getListBooks, addBook } from '../../../Lib/firebase';
@@ -53,9 +53,9 @@ export default class HomeView extends Component {
 
 
   render() {
-    if(!this.state.ready) {
-      return <Spinner color='blue' />;
-    }
+    // if(!this.state.ready) {
+    //   return <Spinner color='blue' />;
+    // }
     return (
       <Container>
         <View>
@@ -64,7 +64,7 @@ export default class HomeView extends Component {
             renderItem={item => <ReviewItem item={item} />}
           />
         </View>
-      </Container>      
+      </Container>
     );
   }
 }

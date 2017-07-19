@@ -8,8 +8,11 @@ import {
   Right,
   Title,
 } from 'native-base';
+import {
+  TouchableOpacity,Text
+} from 'react-native';
 
-const NormalToolbar = (props) => {
+const ReviewToolbar = (props) => {
   const { navigation } = props;
   const goBack = () => navigation.goBack();
   return (
@@ -22,11 +25,15 @@ const NormalToolbar = (props) => {
         </Button>
       </Left>
       <Body>
+       <Title>Add Review</Title>
       </Body>
       <Right style={{flex: 0}}>
+        <Button transparent>
+          <Text>Post</Text>
+        </Button>
       </Right>
     </Header>
   );
 };
 
-export default NormalToolbar;
+export default ReviewToolbar;
