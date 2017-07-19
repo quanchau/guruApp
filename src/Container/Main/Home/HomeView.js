@@ -50,7 +50,7 @@ export default class HomeView extends Component {
             renderItem={item => <ReviewItem item={item} />}
           />
         </View>
-      </Container>      
+      </Container>
     );
   }
 }

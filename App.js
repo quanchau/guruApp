@@ -11,8 +11,20 @@ export default class App extends React.Component {
   state = {fontsAreLoaded: false};
 
   async componentWillMount() {
-    firebase.initializeData();
 
+    //configureAxios();
+    const config = {
+      apiKey: "AIzaSyDHOZk_tADJSgWecEw_RS8X9c55hu0rL1c",
+      authDomain: "react-firebase-ebcf7.firebaseapp.com",
+      databaseURL: "https://react-firebase-ebcf7.firebaseio.com",
+      projectId: "react-firebase-ebcf7",
+      storageBucket: "react-firebase-ebcf7.appspot.com",
+      messagingSenderId: "101790074065"
+    };
+    //firebase.initializeApp(config);
+    if (!firebase.apps.length) {
+      firebase.initializeApp(config);
+    }
     await Expo.Font.loadAsync({
       'Roboto': require('native-base/Fonts/Roboto.ttf'),
       'Roboto_medium': require('native-base/Fonts/Roboto_medium.ttf'),
