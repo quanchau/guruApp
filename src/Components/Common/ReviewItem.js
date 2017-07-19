@@ -20,14 +20,19 @@ import StarRating from 'react-native-star-rating';
 
 const ReviewItem = (props) => {
   const { item } = props;
+
+  const getBiggerImage = (url) => `${url}&zoom=7`;
+
   return (
     <Card style={{ elevation: 3 }}>
       <CardItem cardBody>
-        <Image style={{ height: 300, flex: 1 }} source={item.image} />
+        <Image
+          style={{ height: 300, flex: 1 }}
+          source={{uri : getBiggerImage(item.imageLinks.thumbnail)}} />
       </CardItem>
       <Body style={styles.info}>
-        <H3>Gone with the wind</H3>
-        <Text note>Margaret Mitchell</Text>
+        <H3>{item.title}</H3>
+        <Text note>{item.authors[0]}</Text>
       </Body>
       <CardItem>
         <Left>
@@ -58,8 +63,6 @@ const ReviewItem = (props) => {
         <H3>Rate it !</H3>
         <StarRating
           starSize={32}
-          //buttonStyle={{height: 24}}
-          // starStyle={{height: 24}}
           disabled={false}
           emptyStar={'ios-star-outline'}
           fullStar={'ios-star'}

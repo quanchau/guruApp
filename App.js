@@ -4,13 +4,14 @@ import { Platform, BackHandler } from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import NavigatorViewContainer from './src/Navigator/NavigatorViewContainer';
 import store from './src/Redux/Store';
-import * as firebase from 'firebase';
+import firebase from './src/Lib/firebase';
 
 export default class App extends React.Component {
 
   state = {fontsAreLoaded: false};
 
   async componentWillMount() {
+
     //configureAxios();
     const config = {
       apiKey: "AIzaSyDHOZk_tADJSgWecEw_RS8X9c55hu0rL1c",
