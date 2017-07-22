@@ -12,6 +12,7 @@ import MainView from '@container/Main/MainView';
 import HomeView from '@container/Main/Home/HomeView';
 import FriendsView from '@container/Main/Friends/FriendsView';
 import ProfieView from '@container/Main/Profile/ProfileView';
+import Activities from '@container/Main/Profile/FollowingView';
 import Review from '@container/Main/Review/Review';
 import BarcodeScanner from '@container/Demo/BarcodeScanner';
 
@@ -23,6 +24,33 @@ const ReviewView = StackNavigator({
     //  }
   }
 })
+
+const ProfileTabNavigator = TabNavigator({
+  Activities: {
+    screen: Activities,
+  },
+  WishList: {
+    screen: ProfieView,
+  },
+},
+  {
+    swipeEnabled: false,
+    animationEnabled: false,
+    lazy: true,
+    tabBarOptions: {
+      activeTintColor: '#B48B41',
+      inactiveTintColor: '#7D8388',
+      // showIcon: false,
+      labelStyle: {
+        // flex: 1,
+        // fontSize: 16,
+        // marginTop: 12,
+      },
+      style: {
+        backgroundColor: '#262C36',
+      },
+    },
+  });
 
 const MainNavigator = TabNavigator({
   Home: {
@@ -56,7 +84,7 @@ const MainNavigator = TabNavigator({
     }
   },
   Profile: {
-    screen: ProfieView,
+    screen: ProfileTabNavigator,
     navigationOptions: {
       title: 'Profile',
       tabBarIcon: ({ tintColor }) => (
