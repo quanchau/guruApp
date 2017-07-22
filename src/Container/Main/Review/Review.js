@@ -21,7 +21,7 @@ const IMAGE_URL = 'https://pbs.twimg.com/profile_images/782474226020200448/zDo-g
 export default class Review extends Component {
   handleTextInputChange = (text) => {
     //console.log(text);
-    Keyboard.dismiss();
+    //Keyboard.dismiss();
   }
   render() {
     return (
@@ -34,6 +34,11 @@ export default class Review extends Component {
                 <Text>Elon Musk</Text>
               </Body>
             </Left>
+            <Right>
+              <Button light>
+                <Text>Post</Text>
+              </Button>
+            </Right>
           </CardItem>
           <CardItem >
             <Body>
@@ -44,6 +49,9 @@ export default class Review extends Component {
                 onChangeText={this.handleTextInputChange}
                 autoFocus={true}
               />
+            </Item>
+            <Item>
+              <Icon name='camera' />
             </Item>
             </Body>
           </CardItem>
