@@ -90,7 +90,7 @@ const ReviewItem = (props) => {
 
 const styles = {
   info: {
-    marginTop: 16,
+    marginTop: 4,
   },
   actionWrapper: {
     flexDirection: 'row',

@@ -14,6 +14,10 @@ import firebase from '../../Lib/firebase';
 // import * as firebase from 'firebase';
 
 export default class LoginView extends Component {
+  static navigationOptions = {
+        header: null
+    }
+
   constructor(props){
     super(props);
     this.state = {
@@ -40,6 +44,7 @@ export default class LoginView extends Component {
       email: this.state.email,
       password: this.state.password,
     };
+    alert('user:'+ JSON.stringify(user))
     this.setState({ loading : true});
     firebase.signInWithEmailAndPassword(user)
       .then(response => {

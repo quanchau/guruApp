@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {  Image } from 'react-native';
+import {  Image, TouchableHighlight } from 'react-native';
 import { Container, View, Content, Card, Item,
   CardItem, Thumbnail, Text, Button, Icon, Left,
   Body, Right, H3 } from 'native-base';
@@ -9,14 +9,21 @@ import BookItem from '../../../Components/Common/BookItem';
 const IMAGE_URL = 'https://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/v/e/veembangnoinho.jpg';
 
 export default class FriendsView extends Component {
+
+  handleSelectUser = () => {
+      this.props.navigation.navigate('Profile');
+  }
+
   render() {
     return (
       <View style={styles.container}>
         <Card>
           <CardItem>
             <Left>
-              <Thumbnail style={{ width: 48, height: 48, borderRadius: 24}}
-                         source={{uri: IMAGE_URL}} />
+              <TouchableHighlight onPress={this.handleSelectUser}>
+                <Thumbnail style={{ width: 48, height: 48, borderRadius: 24}}
+                          source={{uri: IMAGE_URL}} />
+              </TouchableHighlight>
               <Item style={{ borderBottomColor: 'transparent'}}>
                 <Text>{`Khac Vy `}</Text>
                 <Text note>{`rated a book `}</Text>

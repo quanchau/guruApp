@@ -6,15 +6,17 @@ import {
   Left,
   Icon,
   Right,
-  Title,
+  Title
 } from 'native-base';
 import {
-  TouchableOpacity,Text
+  TouchableOpacity,Text,Keyboard
 } from 'react-native';
 
 const ReviewToolbar = (props) => {
   const { navigation } = props;
-  const goBack = () => navigation.goBack();
+  const goBack = () => {
+    Keyboard.dismiss();
+    navigation.goBack()};
   return (
     <Header>
       <Left style={{flex: 0}}>
