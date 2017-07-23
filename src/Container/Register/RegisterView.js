@@ -39,7 +39,7 @@ export default class LoginView extends Component {
     firebase.register(user)
       .then((response) => {
         console.log('[RegisterView.js] register success', response);
-        this.navigation.navigate('Main');
+        this.props.navigation.navigate('Main');
       })
       .catch(error => {
         console.log('[RegisterView.js] register error', error);
