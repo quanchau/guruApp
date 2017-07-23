@@ -7,6 +7,7 @@ import ReviewToolbar from '@components/Common/ReviewBar';
 import ProfileHeader from '@components/Common/ProfileHeader';
 
 //screen
+import SplashView from '@container/Splash/SplashView';
 import LoginView from '@container/Login/LoginView';
 import RegisterView from '@container/Register/RegisterView';
 import MainView from '@container/Main/MainView';
@@ -104,6 +105,10 @@ const MainNavigator = TabNavigator({
 });
 
 const AppNavigator = StackNavigator({
+  Splash: {
+    screen: SplashView,
+    header: null,
+  },
   Login: {
     screen: LoginView,
     header: null,
@@ -126,7 +131,7 @@ const AppNavigator = StackNavigator({
   },
 }, {
   // headerMode: 'none',
-  initialRouteName: 'Login',
+  initialRouteName: 'Splash',
 });
 
 export default AppNavigator;
