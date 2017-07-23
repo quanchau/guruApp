@@ -15,15 +15,32 @@ import {
   Item,
   Input,
 } from 'native-base';
+import { ImagePicker } from 'expo';
 
 const IMAGE_URL = 'https://pbs.twimg.com/profile_images/782474226020200448/zDo-gAo0_400x400.jpg';
 
 export default class Review extends Component {
+  state = {
+    image: null,
+  };
   handleTextInputChange = (text) => {
     //console.log(text);
     //Keyboard.dismiss();
   }
+  _pickImage = async () => {
+   let result = await ImagePicker.launchImageLibraryAsync({
+     allowsEditing: true,
+     aspect: [4, 3],
+   });
+
+   console.log(result);
+
+   if (!result.cancelled) {
+     this.setState({ image: result.uri });
+   }
+ };
   render() {
+    let { image } = this.state;
     return (
       <View style={styles.container}>
         <Card>
@@ -48,7 +65,15 @@ export default class Review extends Component {
               />
             </Item>
             <Item>
-              <Icon name='camera' />
+              <Button
+                transparent
+                onPress={this._pickImage}
+              >
+                <Icon name='camera' />
+                {image &&
+                  <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />
+                }
+              </Button>
             </Item>
             </Body>
           </CardItem>
