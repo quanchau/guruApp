@@ -8,22 +8,20 @@ import {
   Input,
   Thumbnail,Container,
 } from 'native-base';
-
-import * as firebase from 'firebase';
+import firebase from '../../Lib/firebase';
 
 export default class LoginView extends Component {
   constructor(props){
     super(props);
     this.state = {
-      userName: '',
+      email: '',
       password: '',
-    }
-    this.dataRef = firebase.database().ref('users');
+    };
   }
 
   handleUserNameChange = (name) => {
     this.setState({
-      userName: name,
+      email: name,
     })
   }
 
@@ -35,12 +33,19 @@ export default class LoginView extends Component {
 
   handleSubmit = () => {
     const user = {
-      userName: this.state.userName,
+      email: this.state.email,
       password: this.state.password,
-    }
-    this.dataRef.push(user);
-    this.props.navigation.navigate('Main');
-  }
+    };
+    firebase.register(user)
+      .then((response) => {
+        console.log('[RegisterView.js] register success', response);
+        this.navigation.navigate('Main');
+      })
+      .catch(error => {
+        console.log('[RegisterView.js] register error', error);
+        alert(error.message)
+      })
+  };
 
   render() {
     return (
@@ -53,11 +58,17 @@ export default class LoginView extends Component {
             source={require('./2096.jpg')} />
             <Item>
               <Input
+                autoCorrect={false}
+                keyboardType="email-address"
+                autoCapitalize="none"
                 onChangeText={this.handleUserNameChange}
-                placeholder="Username" />
+                placeholder="Email" />
             </Item>
             <Item last>
               <Input
+                autoCorrect={false}
+                secureTextEntry
+                autoCapitalize="none"
                 onChangeText={this.handlePasswordChange}
                 placeholder="Password" />
             </Item>

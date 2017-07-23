@@ -1,7 +1,7 @@
 import AppNavigator from './Navigator';
 
 const initialState = AppNavigator.router
-  .getStateForAction(AppNavigator.router.getActionForPathAndParams('Login'));
+  .getStateForAction(AppNavigator.router.getActionForPathAndParams('Splash'));
 
 const Nav = (state = initialState, action) => {
   const nextState = AppNavigator.router.getStateForAction(action, state);

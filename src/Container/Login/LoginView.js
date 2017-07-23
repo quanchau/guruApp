@@ -6,24 +6,26 @@ import {
   Form,
   Item,
   Input,
-  Thumbnail,Container,
+  Thumbnail,
+  Container,
+  Spinner,
 } from 'native-base';
-
-import * as firebase from 'firebase';
+import firebase from '../../Lib/firebase';
+// import * as firebase from 'firebase';
 
 export default class LoginView extends Component {
   constructor(props){
     super(props);
     this.state = {
-      userName: '',
+      email: '',
       password: '',
+      loading: false,
     }
-    this.dataRef = firebase.database().ref('users');
   }
 
   handleUserNameChange = (name) => {
     this.setState({
-      userName: name,
+      email: name,
     })
   }
 
@@ -31,40 +33,31 @@ export default class LoginView extends Component {
     this.setState({
       password: pw,
     })
-  }
+  };
 
   handleSubmit = () => {
     const user = {
-      userName: this.state.userName,
+      email: this.state.email,
       password: this.state.password,
-    }
-    // this.dataRef.once("value", (snapshot) => {
-    //   snapshot.forEach((childSnapshot) => {
-    //     //console.log(childSnapshot);
-    //     if(childSnapshot.val().userName == this.state.userName
-    //       && childSnapshot.val().password == this.state.password){
-    //       this.props.navigation.navigate('Main');
-    //       return;
-    //     }
-    //     else {
-    //       alert('User name or password does not exist!');
-    //       return;
-    //     }
-    //   })
-    // });
-    //
-    // this.dataRef.orderByChild("userName").equalTo(this.state.userName).once("value", (snapshot) => {
-    //   const userName = snapshot.val();
-    //   if (userName){
-    //     console.log("exists!");
-    //   }
-    // });
-    this.props.navigation.navigate('Main');
-  }
+    };
+    this.setState({ loading : true});
+    firebase.signInWithEmailAndPassword(user)
+      .then(response => {
+        this.setState({ loading : false});
+        console.log('[LoginView.js] login success', response);
+        this.props.navigation.navigate('Main');
+      })
+      .catch(error => {
+        this.setState({ loading : false});
+        console.log('[LoginView.js] login error', error);
+        alert(error.message);
+      })
+
+  };
 
   handleRegisterButtonClicked = () => {
     this.props.navigation.navigate('Register');
-  }
+  };
 
   render() {
     return (
@@ -77,11 +70,17 @@ export default class LoginView extends Component {
             source={require('./logo.png')} />
             <Item>
               <Input
+                autoCorrect={false}
+                keyboardType="email-address"
+                autoCapitalize="none"
                 onChangeText={this.handleUserNameChange}
-                placeholder="Username" />
+                placeholder="Email" />
             </Item>
             <Item last>
               <Input
+                autoCorrect={false}
+                secureTextEntry
+                autoCapitalize="none"
                 onChangeText={this.handlePasswordChange}
                 placeholder="Password" />
             </Item>
@@ -89,6 +88,11 @@ export default class LoginView extends Component {
               block
               style={styles.button}
               onPress={this.handleSubmit}>
+              {
+                this.state.loading ?
+                  (<Spinner size="small" color="#FFF" style={{ marginRight: 16}} />)
+                  : null
+              }
               <Text style={{color: 'white'}}>Sign In</Text>
             </Button>
           </Form>
