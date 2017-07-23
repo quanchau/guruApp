@@ -18,7 +18,7 @@ export default class FollowingView extends Component {
               <Thumbnail source={{ uri: URL }} />
             </Left>
             <Body>
-              <Text>Elon Zuckerberg</Text>
+              <Text>Elon Musk</Text>
               <Text note>Commented on a review for book Blink . .</Text>
             </Body>
             <Right>
@@ -30,7 +30,7 @@ export default class FollowingView extends Component {
                 <Thumbnail source={{ uri: URL }} />
               </Left>
               <Body>
-                <Text>Mark Zuckerberg</Text>
+                <Text>Elon Musk</Text>
                 <Text note>Commented on a review for book Blink . .</Text>
               </Body>
               <Right>
@@ -42,7 +42,7 @@ export default class FollowingView extends Component {
                 <Thumbnail source={{ uri: URL }} />
               </Left>
               <Body>
-                <Text>Mark Zuckerberg</Text>
+                <Text>Elon Musk</Text>
                 <Text note>Commented on a review for book Blink . .</Text>
               </Body>
               <Right>
@@ -54,7 +54,7 @@ export default class FollowingView extends Component {
                 <Thumbnail source={{ uri: URL }} />
               </Left>
               <Body>
-                <Text>Mark Zuckerberg</Text>
+                <Text>Elon Musk</Text>
                 <Text note>Commented on a review for book Blink . .</Text>
               </Body>
               <Right>

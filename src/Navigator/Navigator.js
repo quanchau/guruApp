@@ -4,6 +4,7 @@ import {DrawerNavigator, StackNavigator, TabNavigator} from 'react-navigation';
 import Placeholder from '@components/Common/PlaceHolder';
 import NormalToolbar from '@components/Common/Toolbar';
 import ReviewToolbar from '@components/Common/ReviewBar';
+import ProfileHeader from '@components/Common/ProfileHeader';
 
 //screen
 import LoginView from '@container/Login/LoginView';
@@ -11,7 +12,7 @@ import RegisterView from '@container/Register/RegisterView';
 import MainView from '@container/Main/MainView';
 import HomeView from '@container/Main/Home/HomeView';
 import FriendsView from '@container/Main/Friends/FriendsView';
-import ProfieView from '@container/Main/Profile/ProfileView';
+import WishListView from '@container/Main/Profile/WishListView';
 import Activities from '@container/Main/Profile/FollowingView';
 import Review from '@container/Main/Review/Review';
 import BarcodeScanner from '@container/Demo/BarcodeScanner';
@@ -19,38 +20,26 @@ import BarcodeScanner from '@container/Demo/BarcodeScanner';
 const ReviewView = StackNavigator({
    Review: {
      screen: Review,
-    //  navigationOptions: {
-    //    header: ReviewToolbar,
-    //  }
+     navigationOptions: {
+       header: ReviewToolbar,
+     }
   }
 })
 
-const ProfileTabNavigator = TabNavigator({
+const ProfileStackNavigator = StackNavigator({
   Activities: {
     screen: Activities,
+    navigationOptions: {
+      header: ProfileHeader,
+    }
   },
   WishList: {
-    screen: ProfieView,
+    screen: WishListView,
+    navigationOptions: {
+      header: ProfileHeader,
+    }
   },
-},
-  {
-    swipeEnabled: false,
-    animationEnabled: false,
-    lazy: true,
-    tabBarOptions: {
-      activeTintColor: '#B48B41',
-      inactiveTintColor: '#7D8388',
-      // showIcon: false,
-      labelStyle: {
-        // flex: 1,
-        // fontSize: 16,
-        // marginTop: 12,
-      },
-      style: {
-        backgroundColor: '#262C36',
-      },
-    },
-  });
+});
 
 const MainNavigator = TabNavigator({
   Home: {
@@ -74,23 +63,25 @@ const MainNavigator = TabNavigator({
     }
   },
   Add: {
-    screen: Review,
+    screen: ReviewView,
     navigationOptions: {
       title: 'Add Review',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="add" style={{ color : '#FFF'}}
         />
-      )
+      ),
+      header: null,
     }
   },
   Profile: {
-    screen: ProfileTabNavigator,
+    screen: ProfileStackNavigator,
     navigationOptions: {
       title: 'Profile',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="contact" style={{ color : '#FFF'}}
         />
-      )
+      ),
+      header: null,
     }
   },
 }, {

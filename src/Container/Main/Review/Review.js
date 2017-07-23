@@ -35,9 +35,6 @@ export default class Review extends Component {
               </Body>
             </Left>
             <Right>
-              <Button light>
-                <Text>Post</Text>
-              </Button>
             </Right>
           </CardItem>
           <CardItem >

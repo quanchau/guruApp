@@ -29,7 +29,7 @@ const ReviewToolbar = (props) => {
       </Body>
       <Right style={{flex: 0}}>
         <Button transparent>
-          <Text>Post</Text>
+          <Title>Post</Title>
         </Button>
       </Right>
     </Header>
