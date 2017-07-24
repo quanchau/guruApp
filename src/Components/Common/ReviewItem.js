@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image  } from 'react-native';
+import { Modal, TouchableHighlight, Image  } from 'react-native';
 import {
   Container,
   View,
@@ -20,9 +20,7 @@ import StarRating from 'react-native-star-rating';
 
 const ReviewItem = (props) => {
   const { item } = props;
-
   const getBiggerImage = (url) => `${url}&zoom=7`;
-
   return (
     <Card style={{elevation: 3 }}>
       <CardItem cardBody>
@@ -64,17 +62,25 @@ const ReviewItem = (props) => {
       <CardItem style={styles.actionWrapper}>
         <Button
           transparent
-          onPress={this.onSwipeLeft}
+          onPress={props.swipeLeft}
         >
           <Icon name="close-circle" style={{ color: 'red' }} />
         </Button>
-        <Button transparent>
+        <Button
+          transparent
+          onPress={props.swipeRight}
+        >
           <Icon name="heart" style={{ color: 'red' }} />
         </Button>
-        <Button transparent>
+        <Button
+          transparent
+          onPress={props.onCommentPress}
+        >
           <Icon name="chatbubbles" style={{ color: 'red' }} />
         </Button>
-        <Button transparent>
+        <Button
+          onPress={() => {props.setModalVisible(true)}}
+          transparent>
           <Icon name="star" style={{ color: 'red' }} />
         </Button>
       </CardItem>

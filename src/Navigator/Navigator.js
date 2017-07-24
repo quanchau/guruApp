@@ -12,6 +12,7 @@ import LoginView from '@container/Login/LoginView';
 import RegisterView from '@container/Register/RegisterView';
 import MainView from '@container/Main/MainView';
 import HomeView from '@container/Main/Home/HomeView';
+import CommentView from '@container/Main/Home/CommentView';
 import FriendsView from '@container/Main/Friends/FriendsView';
 import WishListView from '@container/Main/Profile/WishListView';
 import Activities from '@container/Main/Profile/FollowingView';
@@ -42,15 +43,28 @@ const ProfileStackNavigator = StackNavigator({
   },
 });
 
-const MainNavigator = TabNavigator({
+const HomeNav = StackNavigator({
   Home: {
     screen: HomeView,
+  },
+  CommentView: {
+    screen: CommentView,
+    navigationOptions: {
+      header: NormalToolbar,
+    }
+  },
+});
+
+const MainNavigator = TabNavigator({
+  Home: {
+    screen: HomeNav,
     navigationOptions: {
       title: 'Home',
       tabBarIcon: ({ tintColor }) => (
         <Icon name="home" style={{ color : '#FFF'}}
         />
-      )
+      ),
+      header: null,
     }
   },
   Friends: {
@@ -121,7 +135,6 @@ const AppNavigator = StackNavigator({
   },
   Main: {
     screen: MainNavigator,
-    header: null,
   },
   Barcode: {
     screen: BarcodeScanner,
