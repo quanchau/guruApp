@@ -44,10 +44,13 @@ export default class HomeView extends Component {
     console.log('[HomeView.js] render');
     return (
       <Container>
-        <View>
+        <View >
           <DeckSwiper
             dataSource={this.state.reviews}
-            renderItem={item => <ReviewItem item={item} />}
+            renderItem={item =>
+              <ReviewItem
+                item={item} />
+            }
           />
         </View>
       </Container>
@@ -58,9 +61,6 @@ export default class HomeView extends Component {
 const styles = {
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    paddingTop: 56,
     backgroundColor: '#ecf0f1',
   },
   paragraph: {
