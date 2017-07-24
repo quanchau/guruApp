@@ -1,5 +1,5 @@
 import React from 'react';
-import { Image  } from 'react-native';
+import { Modal, TouchableHighlight, Image  } from 'react-native';
 import {
   Container,
   View,
@@ -20,11 +20,9 @@ import StarRating from 'react-native-star-rating';
 
 const ReviewItem = (props) => {
   const { item } = props;
-
   const getBiggerImage = (url) => `${url}&zoom=7`;
-
   return (
-    <Card style={{ elevation: 3 }}>
+    <Card style={{elevation: 3 }}>
       <CardItem cardBody>
         <Image
           style={{ height: 300, flex: 1 }}
@@ -34,7 +32,7 @@ const ReviewItem = (props) => {
         <H3>{item.title}</H3>
         <Text note>{item.authors[0]}</Text>
       </Body>
-      <CardItem>
+      <CardItem style={{marginTop:40}}>
         <Left>
           <StarRating
             starSize={18}
@@ -60,27 +58,30 @@ const ReviewItem = (props) => {
         </Item>
       </CardItem>
       <Body style={styles.info}>
-        <H3>Rate it !</H3>
-        <StarRating
-          starSize={32}
-          disabled={false}
-          emptyStar={'ios-star-outline'}
-          fullStar={'ios-star'}
-          halfStar={'ios-star-half'}
-          iconSet={'Ionicons'}
-          maxStars={5}
-          rating={0}
-          selectedStar={(rating) => {}}
-          starColor={'red'}
-        />
       </Body>
       <CardItem style={styles.actionWrapper}>
-        <Button transparent>
+        <Button
+          transparent
+          onPress={props.swipeLeft}
+        >
+          <Icon name="close-circle" style={{ color: 'red' }} />
+        </Button>
+        <Button
+          transparent
+          onPress={props.swipeRight}
+        >
+          <Icon name="heart" style={{ color: 'red' }} />
+        </Button>
+        <Button
+          transparent
+          onPress={props.onCommentPress}
+        >
           <Icon name="chatbubbles" style={{ color: 'red' }} />
         </Button>
-
-        <Button transparent>
-          <Icon name="heart" style={{ color: 'red' }} />
+        <Button
+          onPress={() => {props.setModalVisible(true)}}
+          transparent>
+          <Icon name="star" style={{ color: 'red' }} />
         </Button>
       </CardItem>
     </Card>
@@ -94,7 +95,8 @@ const styles = {
   },
   actionWrapper: {
     flexDirection: 'row',
-    //justifyContent: 'space-between',
+    marginTop: 30,
+    justifyContent: 'space-between',
   }
 };
 

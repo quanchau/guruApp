@@ -8,10 +8,12 @@ import {
   Right,
   Title,
 } from 'native-base';
-
+import { NavigationActions } from 'react-navigation';
 const NormalToolbar = (props) => {
   const { navigation } = props;
-  const goBack = () => navigation.goBack();
+  const goBack = () => {
+    navigation.dispatch(NavigationActions.back())
+  }
   return (
     <Header>
       <Left style={{flex: 0}}>
