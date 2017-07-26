@@ -10,10 +10,22 @@ const IMAGE_URL = 'https://www.fahasa.com/media/catalog/product/cache/1/image/9d
 
 export default class FriendsView extends Component {
 
+  constructor(props) {
+    super(props)    
+  }
+
+  componentWillMount() {
+    // preload data
+  }
+
   handleSelectUser = () => {
       this.props.navigation.navigate('Profile');
   }
 
+  handlePressComment = () => {
+      this.props.navigation.navigate('CommentView');
+  }
+  
   render() {
     return (
       <View style={styles.container}>
@@ -47,13 +59,13 @@ export default class FriendsView extends Component {
           </CardItem>
           <CardItem>
             <Left>
-              <Button transparent>
+              <Button transparent onPress={this.handlePressLike}>
                 <Icon active name="thumbs-up" />
                 <Text>12 Likes</Text>
               </Button>
             </Left>
             <Body>
-            <Button transparent>
+            <Button transparent onPress = {this.handlePressComment}>
               <Icon active name="chatbubbles" />
               <Text>4 Comments</Text>
             </Button>

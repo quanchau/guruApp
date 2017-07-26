@@ -11,11 +11,34 @@ import {
   Right,
   Thumbnail,
   Item,
-  Input,
+  Input
 } from 'native-base';
+import {Keyboard} from 'react-native'
+
 const URL = 'https://pbs.twimg.com/profile_images/782474226020200448/zDo-gAo0_400x400.jpg';
 
 export default class CommentView extends Component {
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      textTyping:''
+    }
+  }
+
+  handlePressPost = () => {
+    this.setState({
+      textTyping:''
+    });
+    Keyboard.dismiss();
+  }
+
+  handleTextChange = (text) => {
+    this.setState({
+      textTyping:text
+    });
+  }
+
   render() {
     return (
       <View >
@@ -72,9 +95,11 @@ export default class CommentView extends Component {
         <Item regular>
            <Input
             autoFocus={true}
-            placeholder='Add a comment'>
+            placeholder='Add a comment'
+            value={this.state.textTyping} 
+            onChangeText={this.handleTextChange}>
             </Input>
-            <Button transparent>
+            <Button transparent onPress={this.handlePressPost}>
              <Text>Post</Text>
             </Button>
         </Item>
