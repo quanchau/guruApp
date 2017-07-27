@@ -23,7 +23,7 @@ const ReviewView = StackNavigator({
    Review: {
      screen: Review,
      navigationOptions: {
-       header: ReviewToolbar,
+       header: null,//ReviewToolbar,
      }
   }
 })
