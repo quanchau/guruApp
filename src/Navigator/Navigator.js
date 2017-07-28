@@ -8,6 +8,7 @@ import ProfileHeader from '@components/Common/ProfileHeader';
 
 //screen
 import SplashView from '@container/Splash/SplashView';
+import IntroView from '@container/Intro/IntroView';
 import LoginView from '@container/Login/LoginView';
 import RegisterView from '@container/Register/RegisterView';
 import MainView from '@container/Main/MainView';
@@ -122,6 +123,12 @@ const AppNavigator = StackNavigator({
   Splash: {
     screen: SplashView,
     header: null,
+  },
+  Intro: {
+    screen: IntroView,
+    navigationOptions: {
+      header: null,
+    }
   },
   Login: {
     screen: LoginView,
