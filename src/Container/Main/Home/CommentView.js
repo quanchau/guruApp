@@ -15,6 +15,7 @@ import {
 } from 'native-base';
 import {Keyboard, KeyboardAvoidingView, ScrollView} from 'react-native';
 import {connect} from 'react-redux';
+import firebase from '../../../Lib/firebase';
 
 const URL = 'https://pbs.twimg.com/profile_images/782474226020200448/zDo-gAo0_400x400.jpg';
 
@@ -27,7 +28,22 @@ class CommentView extends Component {
     }
   }
 
+  componentWillMount() {
+
+  }
+
   handlePressPost = () => {
+    let commentRef = firebase.database().ref('books/' + this.props.bookID + '/comments')
+    commentRef.once('value').then((snapshot)=> {
+      if(snapshot.val()) {
+        
+      }
+    });
+
+
+    if(this.props.addedNewComment) {
+      this.props.addedNewComment({})
+    }
     this.setState({
       textTyping:''
     });
@@ -158,7 +174,7 @@ const styles = {
 
 // Any actions to map to the component?
 const mapDispatchToProps = (dispatch) => ({
-    addNewComment: (comment) => dispatch(updateUserInfo(comment))
+    addedNewComment: (comment) => dispatch(updateUserInfo(comment))
 });
 
 export default connect(null, mapDispatchToProps)(CommentView);

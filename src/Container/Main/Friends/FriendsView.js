@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {  Image, TouchableHighlight } from 'react-native';
+import {connect} from 'react-redux';
 import { Container, View, Content, Card, Item,
   CardItem, Thumbnail, Text, Button, Icon, Left,
   Body, Right, H3 } from 'native-base';
@@ -8,7 +9,7 @@ import BookItem from '../../../Components/Common/BookItem';
 
 const IMAGE_URL = 'https://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/v/e/veembangnoinho.jpg';
 
-export default class FriendsView extends Component {
+class FriendsView extends Component {
 
   constructor(props) {
     super(props)    
@@ -92,3 +93,11 @@ const styles = {
     color: '#34495e',
   },
 };
+
+
+// Any actions to map to the component?
+const mapDispatchToProps = (dispatch) => ({
+    addedNewComment: (comment) => dispatch(updateUserInfo(comment))
+});
+
+export default connect(null, mapDispatchToProps)(FriendsView);

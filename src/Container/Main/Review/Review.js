@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { View, Image, Dimensions, Keyboard, ScrollView, KeyboardAvoidingView } from 'react-native';
+import {connect} from 'react-redux';
 import {
   Container,
   Content,
@@ -16,16 +17,18 @@ import {
   Title,
   Item,
   Input,
-  Textarea
+  Textarea,
+  Form
 } from 'native-base';
 import { ImagePicker } from 'expo';
 import ReviewToolbar from '@components/Common/ReviewBar';
+import firebase from '../../../Lib/firebase';
 
 const IMAGE_URL = 'https://pbs.twimg.com/profile_images/782474226020200448/zDo-gAo0_400x400.jpg';
 
 let {width, height} = Dimensions.get('window')
 
-export default class Review extends Component {  
+class Review extends Component {  
   state = {
     image: null,
     noImage: require('./icon/no-image-box.png'),
@@ -35,31 +38,70 @@ export default class Review extends Component {
   };
 
   handleTextInputChangeComment = (text) => {
-    //console.log(text);
-    //Keyboard.dismiss();
+    this.setState({
+      comment:text
+    });
   }
 
   handleTextInputChangeBookName = (text) => {
     this.setState({
       bookName:text
-    })
+    });
   }
 
   handleTextInputChangeAuthorName = (text) => {
     this.setState({
       authorName:text
-    })
+    });
   }
 
   handlePressPost = () => {
     Keyboard.dismiss();
 
-    if(this.validateInfo()) {
 
+    if(this.validateInfo()) {      
+      var newBookRef = firebase.database().ref('books').push();
+      var key = newBookRef.key;
+      newBookRef.set({
+        id: key,
+        title: this.state.bookName,
+        authors: [this.state.authorName],
+
+        ///// need add more info of book  ///////
+
+      }).then((error)=>{
+        if(error) {
+          alert('Fail to submit new book, please try again!')
+        } else {
+          this.setState({
+            image:null,
+            comment:'',
+            authorName:'',
+            bookName:''
+          })
+        }
+      }) ;
     }
   }
 
   validateInfo = () => {
+    if(this.state.image == null) {
+      alert('Please input image for book');
+      return false;
+    }
+    if(this.state.comment.length == 0) {
+      alert('Please input your opinion about book');
+      return false;
+    }
+    if(this.state.bookName.length == 0){
+      alert('Please input name book');
+      return false;      
+    }
+    if(this.state.bookName.length == 0){
+      alert('Please input author book');
+      return false;      
+    }
+
     return true;
   }
 
@@ -92,7 +134,7 @@ export default class Review extends Component {
           </Right>
         </Header>
     
-        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={64}>
+        <KeyboardAvoidingView behavior='padding' keyboardVerticalOffset={64}>        
         <ScrollView>
         <Card>
           <CardItem>
@@ -113,9 +155,10 @@ export default class Review extends Component {
                 multiline={true}
                 enablesReturnKeyAutomatically= {true}
                 numberOfLines={10}
+                value={this.state.comment}
                 placeholder='Want to review a book, Elon?'
                 onChangeText={this.handleTextInputChangeComment}
-                autoFocus={false}
+                autoFocus={true}
               />
             </Item>
             <Item style={{marginTop:4, marginBottom:4}}>
@@ -154,7 +197,7 @@ export default class Review extends Component {
           </CardItem>          
         </Card>
         </ScrollView>
-        </KeyboardAvoidingView>
+        </KeyboardAvoidingView>        
       </View>
     );
   }
@@ -179,3 +222,11 @@ const styles = {
     color: '#34495e',
   },
 };
+
+
+// Any actions to map to the component?
+const mapDispatchToProps = (dispatch) => ({
+    addedNewBook: (newBook) => dispatch(addedNewBook(newBook))
+});
+
+export default connect(null, mapDispatchToProps)(Review);
