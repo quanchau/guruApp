@@ -26,11 +26,49 @@ import firebase from '../../../Lib/firebase';
 
 const IMAGE_URL = 'https://pbs.twimg.com/profile_images/782474226020200448/zDo-gAo0_400x400.jpg';
 
+var bookTemplate = {
+  "allowAnonLogging" : false,
+  "authors" : [ "Lowell Hayes Harrison" ],
+  "averageRating" : 3,
+  "canonicalVolumeLink" : "https://books.google.com/books/about/A_New_History_of_Kentucky.html?hl=&id=63GqvIN3l3wC",
+  "categories" : [ "History" ],
+  "contentVersion" : "0.0.2.0.preview.3",
+  "description" : "\"[B]rings the Commonwealth [of Kentucky] to life.\"-cover.",
+  "id" : "63GqvIN3l3wC",
+  "imageLinks" : {
+    "smallThumbnail" : "",//http://books.google.com/books/content?id=63GqvIN3l3wC&printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api",
+    "thumbnail" : "" //http://books.google.com/books/content?id=63GqvIN3l3wC&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api"
+  },
+  "industryIdentifiers" : [ {
+    "identifier" : "081312008X",
+    "type" : "ISBN_10"
+  }, {
+    "identifier" : "9780813120089",
+    "type" : "ISBN_13"
+  } ],
+  "infoLink" : "http://books.google.com.vn/books?id=63GqvIN3l3wC&dq=a&hl=&source=gbs_api",
+  "language" : "en",
+  "maturityRating" : "NOT_MATURE",
+  "pageCount" : 533,
+  "previewLink" : "http://books.google.com.vn/books?id=63GqvIN3l3wC&printsec=frontcover&dq=a&hl=&cd=5&source=gbs_api",
+  "printType" : "BOOK",
+  "publishedDate" : "1997",
+  "publisher" : "University Press of Kentucky",
+  "ratingsCount" : 1,
+  "readingModes" : {
+    "image" : true,
+    "text" : true
+  },
+  "title" : "A New History of Kentucky"
+}
+
+
 let {width, height} = Dimensions.get('window')
 
 class Review extends Component {  
   state = {
     image: null,
+    imageBase64:null,
     noImage: require('./icon/no-image-box.png'),
     comment:'',
     bookName:'',
@@ -57,19 +95,16 @@ class Review extends Component {
 
   handlePressPost = () => {
     Keyboard.dismiss();
-
-
     if(this.validateInfo()) {      
       var newBookRef = firebase.database().ref('books').push();
       var key = newBookRef.key;
-      newBookRef.set({
-        id: key,
-        title: this.state.bookName,
-        authors: [this.state.authorName],
+      
+      bookTemplate.id = key;
+      bookTemplate.authors = [this.state.authorName];
+      bookTemplate.title = this.state.bookName;
+      bookTemplate.thumbnailData = 'data:image/png;base64,' +this.state.imageBase64;
 
-        ///// need add more info of book  ///////
-
-      }).then((error)=>{
+      newBookRef.set(bookTemplate).then((error)=>{
         if(error) {
           alert('Fail to submit new book, please try again!')
         } else {
@@ -108,11 +143,17 @@ class Review extends Component {
   _pickImage = async () => {
    let result = await ImagePicker.launchImageLibraryAsync({
      allowsEditing: true,
+     base64:true,
      aspect: [4, 3],
    });
 
    if (!result.cancelled) {
-     this.setState({ image: result.uri });
+     this.setState(
+       { 
+         image: result.uri,
+         imageBase64:result.base64
+        }
+       );
    }
  };
 

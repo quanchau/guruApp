@@ -1,6 +1,4 @@
-import {
 
-} from './ActionType';
 import { LOAD_LIST_FRIEND, RECEIVE_LIST_FRIEND} from './ActionType';
 
 const initialState = {
@@ -35,4 +33,4 @@ const friend = (state = initialState, action ) => {
   }
 };
 
-export default home;
+export default friend;
