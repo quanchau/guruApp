@@ -17,14 +17,15 @@ import StarRating from 'react-native-star-rating';
 const IMAGE_URL = 'https://www.fahasa.com/media/catalog/product/cache/1/image/9df78eab33525d08d6e5fb8d27136e95/v/e/veembangnoinho.jpg';
 
 const BookItem = (props) => {
+  var imageLink = props.uri ? props.uri :  IMAGE_URL;
   return (
     <View padder style={styles.container}>
       <Image
-        source={{uri : IMAGE_URL}}
+        source={{uri : imageLink}}
         style={styles.thumbnail} />
-      <View padder>
-        <Text numberOfLines={1}>Vẽ em bằng màu nỗi nhớ</Text>
-        <Text note numberOfLines={1}>Phạm Hải</Text>
+      <View padder >
+        <Text numberOfLines={5}>Vẽ em bằng màu nỗi nhớ</Text>
+        <Text note numberOfLines={3}>Phạm Hải</Text>
       </View>
     </View>
   );
@@ -36,7 +37,7 @@ const styles = {
     height: 200,
   },
   thumbnail: {
-    width: 150, height: 200,
+    width: 120, height: 200,
   }
 };
 

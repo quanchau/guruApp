@@ -102,6 +102,7 @@ class Review extends Component {
       bookTemplate.id = key;
       bookTemplate.authors = [this.state.authorName];
       bookTemplate.title = this.state.bookName;
+      bookTemplate.description = this.state.comment;
       bookTemplate.thumbnailData = 'data:image/png;base64,' +this.state.imageBase64;
 
       newBookRef.set(bookTemplate).then((error)=>{
