@@ -13,9 +13,11 @@ import LoginView from '@container/Login/LoginView';
 import RegisterView from '@container/Register/RegisterView';
 import MainView from '@container/Main/MainView';
 import HomeView from '@container/Main/Home/HomeView';
+import HomeContainer from '@container/Main/Home/HomeContainer';
 import CommentView from '@container/Main/Home/CommentView';
 import FriendsView from '@container/Main/Friends/FriendsView';
 import WishListView from '@container/Main/Profile/WishListView';
+import SettingsView from '@container/Main/Profile/SettingsView';
 import Activities from '@container/Main/Profile/FollowingView';
 import Review from '@container/Main/Review/Review';
 import BarcodeScanner from '@container/Demo/BarcodeScanner';
@@ -42,11 +44,17 @@ const ProfileStackNavigator = StackNavigator({
       header: ProfileHeader,
     }
   },
+  Settings: {
+  	  screen: SettingsView,
+	  navigationOptions: {
+	  	  header:ProfileHeader ,
+	  }
+  }
 });
 
 const HomeNav = StackNavigator({
   Home: {
-    screen: HomeView,
+    screen: HomeContainer,
   },
   CommentView: {
     screen: CommentView,

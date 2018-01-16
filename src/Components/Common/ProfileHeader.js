@@ -1,4 +1,5 @@
 import React from 'react';
+import {View} from 'react-native';
 import {
   Body,
   Button,
@@ -9,6 +10,7 @@ import {
   Title,
   Segment,
   Text,
+  Tabs
 } from 'native-base';
 
 const ProfileHeader = (props) => {
@@ -24,12 +26,19 @@ const ProfileHeader = (props) => {
     navigation.navigate('WishList');
   };
 
+  const onSettingsPress = () => {
+    focused = 'settings';
+    navigation.navigate('Settings');
+  };
+
   const index = navigation.state.index;
   if(navigation.state.routes[index].routeName === 'Activities'){
     focused = 'activities';
   }
-  else {
+  else if (navigation.state.routes[index].routeName ==='WishList') {
     focused = 'wishlist';
+  } else {
+  	 focused = 'settings';
   }
   return (
     <Header hasTabs>
@@ -41,6 +50,7 @@ const ProfileHeader = (props) => {
         </Button>
       </Left>
       <Body>
+	  <View style={{alignItems:'center'}}>
         <Segment>
           <Button
             onPress={onActivitiesPress}
@@ -50,12 +60,19 @@ const ProfileHeader = (props) => {
           </Button>
           <Button
             onPress={onWishListPress}
-            last
             active={focused === 'wishlist'? true :false}
             >
             <Text>WishList</Text></Button>
+		<Button
+            onPress={onSettingsPress}
+            last
+            active={focused === 'settings'? true :false}
+            >
+            <Text>Settings</Text></Button>
         </Segment>
+		</View>
       </Body>
+
       <Right>
       </Right>
     </Header>

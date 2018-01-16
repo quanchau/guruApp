@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { loadListBooks } from './Action';
+import { loadListBooks, setModalVisible } from './Action';
 import HomeView from './HomeView';
 
 // What data from the store shall we send to the component?
-const mapStateToProps = state => {
-  const entities = state.entities;
+const mapStateToProps = (state) => {
+ /** const entities = state.entities;
   const home = state.home;
   let books = [];
 
@@ -15,17 +15,30 @@ const mapStateToProps = state => {
         books.push(bookEntities[id]);
       }
     }
-  }
+  }*/
+  //    const home = state.home;
+  let books = [];
 
   return {
-    loading: home.books.loading,
+  //  loading: home.books.loading,
     books,
+	modalVisible: false,
   };
 };
 
 // Any actions to map to the component?
-const mapDispatchToProps = (dispatch) => ({
-  loadListBooks: (data) => dispatch(loadListBooks(data))
-});
+const mapDispatchToProps = dispatch => {
+	return {
+		loadListBooks: (data) => {
+			dispatch(loadListBooks(data))
+		},
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeView);
+		setModalVisible: (visible) => {
+			dispatch(setModalVisible(visible)) 
+		},
+	}
+}
+
+const homeContainer = connect(mapStateToProps, mapDispatchToProps)(HomeView);
+
+export default homeContainer;

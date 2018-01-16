@@ -1,10 +1,14 @@
 import { applyMiddleware, compose, createStore } from 'redux';
 import { createLogger } from 'redux-logger';
 import thunk from 'redux-thunk';
+import { combineReducers } from 'redux';
 
 // All redux reducers (rolled into one mega-reducer)
 import rootReducer from './RootReducer';
 
+const combinedReducer = combineReducers( {
+	rootReducer
+});
 // Load middleware
 let middleware = [
   // Analytics,

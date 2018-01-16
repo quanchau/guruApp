@@ -16,13 +16,19 @@ export default class HomeView extends Component {
       reviews: [],
       ready: false,
       modalVisible: false,
+	  starCount:3,
     }
   }
   setModalVisible = (visible) => {
-    console.log(visible);
     this.setState({
       modalVisible: visible
     });
+  }
+
+  onStarRatingPress = (rating) => {
+  	  this.setState({
+	  	  starCount:rating
+	  });
   }
 
   componentDidMount = () => {
@@ -62,6 +68,7 @@ export default class HomeView extends Component {
             renderItem={item =>
               <ReviewItem
                 item={item}
+				starCount={this.state.starCount}
                 swipeLeft={() => this._deckSwiper._root.swipeLeft()}
                 swipeRight={() => this._deckSwiper._root.swipeRight()}
                 onCommentPress={this.onCommentPress}
@@ -83,8 +90,8 @@ export default class HomeView extends Component {
                halfStar={'ios-star-half'}
                iconSet={'Ionicons'}
                maxStars={5}
-               rating={3.5}
-               selectedStar={(rating) => {}}
+               rating={this.state.starCount}
+               selectedStar={(rating) => {this.onStarRatingPress(rating)}}
                starColor={'gold'}
              />
              <View style={{marginTop:20}}>
