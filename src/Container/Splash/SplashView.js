@@ -10,7 +10,7 @@ import {
 } from 'native-base';
 import {NavigationActions} from 'react-navigation';
 import firebase from '../../Lib/firebase';
-import {get, set} from '../../Lib/storage';
+import {get, set, remove} from '../../Lib/storage';
 
 export default class SplashView extends Component {
   constructor(props) {
@@ -18,13 +18,14 @@ export default class SplashView extends Component {
   }
 
   componentDidMount = () => {
-    get('INTRO')
+	get('INTRO')
       .then(savedInfo => {
         if(savedInfo){
           get('USER_INFO')
             .then(response => {
               console.log('[SplashView.js] check user', response);
               if (response) {
+				console.log("run SplashView");
                 this.navigateTo('Main');
               } else {
                 this.navigateTo('Login');

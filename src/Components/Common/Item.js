@@ -18,7 +18,7 @@ import {
 import StarRating from 'react-native-star-rating';
 
 const RItem = (props) => {
-  const {item, reviewBook} = props;
+  const {item, reviewBook, starCount} = props;
 
 
   const getBiggerImage = (url) => `${url}&zoom=7`;
@@ -71,7 +71,7 @@ const RItem = (props) => {
                 halfStar={'ios-star-half'}
                 iconSet={'Ionicons'}
                 maxStars={5}
-                rating={4}
+                rating={starCount}
                 selectedStar={(rating) => {
                 }}
                 starColor={'#FD8603'}

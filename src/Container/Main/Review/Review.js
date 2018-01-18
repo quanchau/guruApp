@@ -200,7 +200,7 @@ class Review extends Component {
                 value={this.state.comment}
                 placeholder='Want to review a book, Elon?'
                 onChangeText={this.handleTextInputChangeComment}
-                autoFocus={true}
+                autoFocus={false}
               />
             </Item>
             <Item style={{marginTop:4, marginBottom:4}}>

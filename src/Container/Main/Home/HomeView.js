@@ -15,11 +15,11 @@ export default class HomeView extends Component {
     this.state = {
       reviews: [],
       ready: false,
-      modalVisible: false,
+     modalVisible: false,
 	  starCount:3,
     }
   }
-  setModalVisible = (visible) => {
+ setModalVisible = (visible) => {
     this.setState({
       modalVisible: visible
     });
@@ -30,9 +30,10 @@ export default class HomeView extends Component {
 	  	  starCount:rating
 	  });
   }
+  
 
   componentDidMount = () => {
-    this.bookRef.once('value')
+  this.bookRef.once('value')
       .then(snapshot => {
         if (snapshot.val()) {
           let reviews = [];
@@ -62,7 +63,7 @@ export default class HomeView extends Component {
     return (
       <Container>
         <View>
-          <DeckSwiper
+        <DeckSwiper
             dataSource={this.state.reviews}
             ref={(c) => this._deckSwiper = c}
             renderItem={item =>
