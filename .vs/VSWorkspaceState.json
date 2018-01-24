@@ -6,12 +6,11 @@
     "\\src\\Components\\Common",
     "\\src\\Container",
     "\\src\\Container\\Demo",
-    "\\src\\Container\\Intro",
+    "\\src\\Container\\Login",
     "\\src\\Container\\Main",
     "\\src\\Container\\Main\\Home",
-    "\\src\\Lib",
-    "\\src\\Redux"
+    "\\src\\Container\\Main\\Profile"
   ],
-  "SelectedNode": "\\src\\Container\\Main\\Home\\Reducer.js",
+  "SelectedNode": "\\src\\Components\\Common\\ReviewItem.js",
   "PreviewInSolutionExplorer": false
 }

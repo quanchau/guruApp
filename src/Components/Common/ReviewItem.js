@@ -25,8 +25,8 @@ const ReviewItem = (props) => {
     <Card style={{elevation: 3 }}>
       <CardItem cardBody>
         <Image
-          style={{ height: 300, flex: 1 }}
-          source={{uri : getBiggerImage(item.imageLinks.thumbnail)}} />
+          style={{ height: 300, width: 400, flex: 1, alignSelf: 'stretch', }}
+          source={{uri : item.imageLinks.thumbnail}} />
       </CardItem>
       <Body style={styles.info}>
         <H3>{item.title}</H3>

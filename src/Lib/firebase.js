@@ -16,7 +16,7 @@ var config = {
     authDomain: "guruapp-c7b87.firebaseapp.com",
     databaseURL: "https://guruapp-c7b87.firebaseio.com",
     projectId: "guruapp-c7b87",
-    storageBucket: "",
+    storageBucket: "guruapp-c7b87.appspot.com",
     messagingSenderId: "230893462217"
  };
  firebase.initializeApp(config);
