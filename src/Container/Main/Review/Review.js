@@ -23,6 +23,22 @@ import {
 import { ImagePicker } from 'expo';
 import ReviewToolbar from '@components/Common/ReviewBar';
 import firebase from '../../../Lib/firebase';
+import { RNS3 } from 'react-native-aws3';
+
+var AWS = require('aws-sdk');
+var s3 = new AWS.S3({accessKeyId:'AKIAJCOEP673RPRE5GSQ', secretAccessKey:'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', region:'us-east-2'});
+ 
+
+
+
+const options = {
+  keyPrefix: "uploads/",
+  bucket: "guru-app",
+  region: "us-east-2",
+  accessKey: "AKIAJCOEP673RPRE5GSQ",
+  secretKey: "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",
+  successActionStatus: 201
+}
 
 const IMAGE_URL = 'https://pbs.twimg.com/profile_images/782474226020200448/zDo-gAo0_400x400.jpg';
 
@@ -46,11 +62,11 @@ var bookTemplate = {
     "identifier" : "9780813120089",
     "type" : "ISBN_13"
   } ],
-  "infoLink" : "http://books.google.com.vn/books?id=63GqvIN3l3wC&dq=a&hl=&source=gbs_api",
+  "infoLink" : "", //http://books.google.com.vn/books?id=63GqvIN3l3wC&dq=a&hl=&source=gbs_api",
   "language" : "en",
   "maturityRating" : "NOT_MATURE",
   "pageCount" : 533,
-  "previewLink" : "http://books.google.com.vn/books?id=63GqvIN3l3wC&printsec=frontcover&dq=a&hl=&cd=5&source=gbs_api",
+  "previewLink" : "", //http://books.google.com.vn/books?id=63GqvIN3l3wC&printsec=frontcover&dq=a&hl=&cd=5&source=gbs_api",
   "printType" : "BOOK",
   "publishedDate" : "1997",
   "publisher" : "University Press of Kentucky",
@@ -72,7 +88,8 @@ class Review extends Component {
     noImage: require('./icon/no-image-box.png'),
     comment:'',
     bookName:'',
-    authorName:''
+    authorName:'',
+
   };
 
   handleTextInputChangeComment = (text) => {
@@ -103,9 +120,28 @@ class Review extends Component {
       bookTemplate.authors = [this.state.authorName];
       bookTemplate.title = this.state.bookName;
       bookTemplate.description = this.state.comment;
-      bookTemplate.thumbnailData = 'data:image/png;base64,' +this.state.imageBase64;
+  //    bookTemplate.thumbnailData = 'data:image/png;base64,' +this.state.image;
+		bookTemplate.imageLinks.thumbnail = this.state.image;
+	
+		const fileName = key + ".png";
+		const file = {
+			 uri: bookTemplate.imageLinks.thumbnail,
+			name: fileName,
+			type: "image/png"
+		}
 
-      newBookRef.set(bookTemplate).then((error)=>{
+		var mapURL = 'initial value';
+  		RNS3.put(file, options).then(response => {
+		if (response.status !== 201)
+			throw new Error("Failed to upload image to S3");
+		console.log(response.body);
+		mapURL = response.body.postResponse.location;
+		}).then(() => {
+		bookTemplate.imageLinks.thumbnail = mapURL;
+
+		var updates = {};
+		updates['/books/' + key] = bookTemplate;
+      firebase.database().ref().update(updates).then((error)=>{
         if(error) {
           alert('Fail to submit new book, please try again!')
         } else {
@@ -116,7 +152,8 @@ class Review extends Component {
             bookName:''
           })
         }
-      }) ;
+      });
+	  });
     }
   }
 
@@ -152,11 +189,12 @@ class Review extends Component {
      this.setState(
        { 
          image: result.uri,
-         imageBase64:result.base64
+         imageBase64:result.base64,
         }
        );
    }
  };
+
 
   render() {
     let { image } = this.state;
@@ -206,11 +244,13 @@ class Review extends Component {
             <Item style={{marginTop:4, marginBottom:4}}>
               <Button
                 transparent
+				type={image}
                 onPress={this._pickImage}
                 style={{marginBottom:4, height: 200 }}
               >
-                  <Image source={ image?{ uri: image }: this.state.noImage} style={{ width: '100%', height: 200 }} />
-              </Button>
+               <Image source={ image?{ uri: image }: this.state.noImage} style={{ width: '100%', height: 200 }} /> 
+             
+			 </Button>
             </Item>
             </Body>
           </CardItem>
