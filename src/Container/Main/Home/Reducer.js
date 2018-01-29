@@ -2,7 +2,7 @@ import {
 
 } from './ActionType';
 import { combineReducers } from 'redux';
-import { LOAD_LIST_DATA, RECEIVE_LIST_DATA, SET_VISIBLE_MODAL} from '../../../Redux/ActionType';
+import { LOAD_LIST_DATA, RECEIVE_LIST_DATA, VISIBLE_MODAL_SET} from '../../../Redux/ActionType';
 
 const initialState = {
   books : {
@@ -51,7 +51,7 @@ const homeReducer = (state = initialState, action ) => {
         return state;
       }
 
-	case SET_VISIBLE_MODAL:
+	case VISIBLE_MODAL_SET:
 		if (payload === true) {
 			return Object.assign({}, state, {
 				modalVisible: true,

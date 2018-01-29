@@ -7,10 +7,11 @@
     "\\src\\Container",
     "\\src\\Container\\Demo",
     "\\src\\Container\\Intro",
-    "\\src\\Container\\Login",
     "\\src\\Container\\Main",
-    "\\src\\Navigator"
+    "\\src\\Container\\Main\\Home",
+    "\\src\\Lib",
+    "\\src\\Redux"
   ],
-  "SelectedNode": "\\.watchmanconfig",
+  "SelectedNode": "\\src\\Container\\Main\\Home\\Reducer.js",
   "PreviewInSolutionExplorer": false
 }

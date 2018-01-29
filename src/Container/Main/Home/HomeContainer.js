@@ -4,7 +4,7 @@ import HomeView from './HomeView';
 
 // What data from the store shall we send to the component?
 const mapStateToProps = (state) => {
- /** const entities = state.entities;
+ /* const entities = state.entities;
   const home = state.home;
   let books = [];
 
@@ -16,12 +16,10 @@ const mapStateToProps = (state) => {
       }
     }
   }*/
-  //    const home = state.home;
-  let books = [];
 
   return {
-  //  loading: home.books.loading,
-    books,
+ //   loading: home.books.loading,
+  //  books,
 	modalVisible: false,
   };
 };

@@ -13,17 +13,27 @@ export default class App extends React.Component {
   async componentWillMount() {
 
     //configureAxios();
-    const config = {
+   /** const config = {
       apiKey: "AIzaSyDHOZk_tADJSgWecEw_RS8X9c55hu0rL1c",
       authDomain: "react-firebase-ebcf7.firebaseapp.com",
       databaseURL: "https://react-firebase-ebcf7.firebaseio.com",
       projectId: "react-firebase-ebcf7",
       storageBucket: "react-firebase-ebcf7.appspot.com",
       messagingSenderId: "101790074065"
-    };
-    //firebase.initializeApp(config);
+    }; */
+
+	var config = {
+    apiKey: "AIzaSyDd91F9LFrLElsI1tkVkFPfw41WoQejREM",
+    authDomain: "guruapp-c7b87.firebaseapp.com",
+    databaseURL: "https://guruapp-c7b87.firebaseio.com",
+    projectId: "guruapp-c7b87",
+    storageBucket: "",
+    messagingSenderId: "230893462217"
+  };
+   // firebase.initializeApp(config);
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
+	
     }
     await Expo.Font.loadAsync({
       'Roboto': require('native-base/Fonts/Roboto.ttf'),

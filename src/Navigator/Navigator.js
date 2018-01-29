@@ -45,16 +45,19 @@ const ProfileStackNavigator = StackNavigator({
     }
   },
   Settings: {
-  	  screen: SettingsView,
-	  navigationOptions: {
-	  	  header:ProfileHeader ,
-	  }
+  	screen: SettingsView,
+	navigationOptions: {
+	  header:ProfileHeader ,
+	}
   }
 });
 
 const HomeNav = StackNavigator({
   Home: {
     screen: HomeContainer,
+	navigationOptions: {
+
+    }
   },
   CommentView: {
     screen: CommentView,
