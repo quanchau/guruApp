@@ -1,0 +1,16 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\Components",
+    "\\src\\Components\\Common",
+    "\\src\\Container",
+    "\\src\\Container\\Demo",
+    "\\src\\Container\\Intro",
+    "\\src\\Container\\Login",
+    "\\src\\Container\\Main",
+    "\\src\\Navigator"
+  ],
+  "SelectedNode": "\\.watchmanconfig",
+  "PreviewInSolutionExplorer": false
+}

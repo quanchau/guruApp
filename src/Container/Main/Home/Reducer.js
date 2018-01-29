@@ -1,16 +1,18 @@
 import {
 
 } from './ActionType';
-import { LOAD_LIST_DATA, RECEIVE_LIST_DATA} from '../../../Redux/ActionType';
+import { combineReducers } from 'redux';
+import { LOAD_LIST_DATA, RECEIVE_LIST_DATA, SET_VISIBLE_MODAL} from '../../../Redux/ActionType';
 
 const initialState = {
   books : {
     loading: false,
     data: [],
   },
+  modalVisible: false,
 };
 
-const home = (state = initialState, action ) => {
+const homeReducer = (state = initialState, action ) => {
   const { type, payload } = action;
   switch (type){
     case LOAD_LIST_DATA:
@@ -27,6 +29,7 @@ const home = (state = initialState, action ) => {
         return state;
       }
     case RECEIVE_LIST_DATA:
+
       if(payload.key === 'books'){
         let itemIds = [];
         let _data = payload.data;
@@ -47,9 +50,25 @@ const home = (state = initialState, action ) => {
       }else {
         return state;
       }
+
+	case SET_VISIBLE_MODAL:
+		if (payload === true) {
+			return Object.assign({}, state, {
+				modalVisible: true,
+			})
+				
+		} else {
+
+			return Object.assign({}, state, {
+				modalVisible: false,
+			})
+				
+	}
+
     default:
       return state;
   }
 };
 
-export default home;
+
+export default homeReducer;
